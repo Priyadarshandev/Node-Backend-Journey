@@ -54,11 +54,11 @@ router.put('/:id', async (req, res)=> {
       const updatedPersonData = req.body; // Updated data for the person
 
       const response = await Person.findByIdAndUpdate(personId, updatedPersonData, {
-        new: true, //Return the update document
+        returnDocument: 'after',//Return the update document
         runValidators: true, // Run Mongoose validation
       }) 
       if(!response) {
-        return res.status(400).json({error:'Person not found'});
+        return res.status(404).json({ error: 'Person not found' });
       }
       console.log('data update');
       res.status(200).json(response);
